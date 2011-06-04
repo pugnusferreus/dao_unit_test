@@ -10,24 +10,11 @@ public abstract class BaseDao<T>
 {
 	public static Logger log = Logger.getLogger(BaseDao.class);
 
-	private boolean filtersEnabled = false;
-	private boolean cacheEnabled = true;
-
 	public abstract Class<T> getModelClass();
 
 	public BaseDao()
 	{
 		super();
-	}
-
-	public static String addKeywordWildcards(String keyword)
-	{
-		StringBuffer keywordBuff = new StringBuffer();
-		keywordBuff.append("%");
-		keywordBuff.append(keyword);
-		keywordBuff.append("%");
-
-		return keywordBuff.toString();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -131,53 +118,4 @@ public abstract class BaseDao<T>
 			HibernateUtils.closeSession();
 		}
 	}
-
-	public void evict(T o)
-	{
-		Session s = HibernateUtils.currentSession();
-
-		try
-		{
-			s.evict(o);
-		}
-		finally
-		{
-			HibernateUtils.closeSession();
-		}
-	}
-
-	public void attach(T o)
-	{
-		Session s = HibernateUtils.currentSession();
-
-		try
-		{
-			s.refresh(o);
-		}
-		finally
-		{
-			HibernateUtils.closeSession();
-		}
-	}
-
-	public boolean isFiltersEnabled()
-	{
-		return filtersEnabled;
-	}
-
-	public void setFiltersEnabled(boolean filtersEnabled)
-	{
-		this.filtersEnabled = filtersEnabled;
-	}
-
-	public boolean isCacheEnabled()
-	{
-		return cacheEnabled;
-	}
-
-	public void setCacheEnabled(boolean cacheEnabled)
-	{
-		this.cacheEnabled = cacheEnabled;
-	}
-
 }
