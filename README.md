@@ -1,10 +1,10 @@
 This is a sample project on how to test your Java Data Access Object via Hibernate and HSQL DB.
 
-** Prerequisites
+## Prerequisites
 * Java 1.6
 * Ant
 
-** To run
+## To run
 
 1. `git clone git@github.com:pugnusferreus/dao_unit_test.git`
 2. open terminal and cd to dao_unit_test
