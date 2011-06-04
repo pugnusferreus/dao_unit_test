@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="all" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %5p %C[%L] [%t] - %m%n" />		
+		</layout>
+	</appender>
+	
+	<logger name="com.movideo">
+		<level value="DEBUG" />
+	</logger>
+	
+	<logger name="org.quartz">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="org.hibernate">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="net.sf.ehcache">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="com.googlecode.hibernate.memcached">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="com.opensymphony.xwork2">
+		<level value="ERROR" />
+	</logger>
+	
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="all" />
+	</root>
+
+</log4j:configuration>

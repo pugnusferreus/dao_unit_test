@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<project name="dao_unit_test" default="test" basedir=".">
+    <property name="src" value="src"/>
+    <property name="build" value="bin"/>
+    <property name="unittest" value="unitTest"/>
+    <property name="lib"  location="lib"/>
+    <property name="docs" value="docs"/>
+	
+    <target name="compile">
+        <mkdir dir="${build}" />
+        <delete>
+            <fileset dir="${build}" />
+        </delete>
+        
+        <javac srcdir="${src}" destdir="${build}" source="1.6" excludes="manifest/**">
+            <classpath>
+                <fileset dir="lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    	<copy file="${src}/hibernate.cfg.xml" tofile="${build}/hibernate.cfg.xml"/>
+    	<copy file="${src}/log4j.xml" tofile="${build}/log4j.xml"/>
+    </target>
+
+    <target name="run-tests" depends="compile" description="unit testing" >
+         <mkdir dir="${unittest}/raw/" />
+         <delete>
+             <fileset dir="${unittest}/raw/" />
+         </delete>
+        <junit printsummary="yes" haltonfailure="yes" showoutput="yes" > 
+            <classpath>
+                <pathelement path="${build}"/>
+                <fileset dir="lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+            
+            <batchtest fork="yes" todir="${unittest}/raw/"> 
+                <formatter type="xml"/> 
+                <fileset dir="${src}"> 
+                    <include name="**/*Test*.java"/> 
+                </fileset> 
+            </batchtest> 
+        </junit> 
+    </target>
+
+    <target name ="test" depends="run-tests">
+        <mkdir dir="${docs}/unitTest/" />
+        <delete>
+            <fileset dir="${docs}/unitTest/" />
+        </delete>
+        <junitreport todir="${unittest}">
+            <fileset dir="${unittest}/raw/">
+                <include name="TEST-*.xml"/>
+            </fileset>
+                <report format="frames" todir="${docs}/unitTest/"/>
+        </junitreport>
+    </target>
+
+</project>
